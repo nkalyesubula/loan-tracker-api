@@ -26,6 +26,8 @@ public class LoanResource {
 
     @Autowired
     AccountService accountService;
+
+    // add a loan
     @PostMapping("")
     public ResponseEntity<Loan> addLoan(HttpServletRequest request,
                                         @RequestBody Map<String, Object> loanMap) {
@@ -36,6 +38,7 @@ public class LoanResource {
         return new ResponseEntity<>(loan, HttpStatus.CREATED);
     }
 
+    // get loan status by account number
     @GetMapping("/{accountId}")
     public ResponseEntity<List<Loan>> getLoanByAccountId(HttpServletRequest request,
                                                       @PathVariable("accountId") Integer accountId) {

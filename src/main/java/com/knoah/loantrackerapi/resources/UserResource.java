@@ -23,6 +23,7 @@ public class UserResource {
     @Autowired
     UserService userService;
 
+    // sign in user
     @PostMapping("/login")
     public ResponseEntity<Map<String, String>> loginUser(@RequestBody Map<String, Object> userMap) {
         String email = (String) userMap.get("email");
@@ -33,6 +34,7 @@ public class UserResource {
         return new ResponseEntity<>(generateJWTToken(user), HttpStatus.OK);
     }
 
+    // register the user
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> registerUser(@RequestBody Map<String, Object> userMap) {
         String firstName = (String) userMap.get("firstName");

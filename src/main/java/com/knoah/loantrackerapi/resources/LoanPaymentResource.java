@@ -16,6 +16,7 @@ public class LoanPaymentResource {
     @Autowired
     LoanPaymentService loanPaymentService;
 
+    // make a loan payment
     @PostMapping("/api/v1/loans/{loanId}/payments")
     public ResponseEntity<LoanPayment> addLoanPayment(HttpServletRequest request,
                                                       @PathVariable("loanId") Integer loanId,
@@ -27,6 +28,7 @@ public class LoanPaymentResource {
         return new ResponseEntity<>(loanPayment, HttpStatus.CREATED);
     }
 
+    // get a loan payment id
     @GetMapping("/{loanPaymentId}")
     public ResponseEntity<LoanPayment> getLoanPaymentById(HttpServletRequest request,
                                                           @PathVariable("loanId") Integer loanId,
@@ -37,6 +39,7 @@ public class LoanPaymentResource {
 
     }
 
+    // fetch all payments made for a particular loan
     @GetMapping("")
     public ResponseEntity<List<LoanPayment>> getAllLoanPayments(HttpServletRequest request,
                                                                 @PathVariable("loanId") Integer loanId) {

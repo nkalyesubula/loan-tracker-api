@@ -16,7 +16,6 @@ public class AdminResource {
 
     @GetMapping("/admin")
     public String showAdminPage(Model model) {
-        System.out.println(metrics.getTotalRequests());
         model.addAttribute("metrics", metrics);
         return "admin";
     }

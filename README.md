@@ -2,8 +2,8 @@
 
 REST API for tracking a customer loan status.
 
-A RESTful API created using Spring Boot. I have used PostgreSQL as the relational database and JdbcTemplate to interact with it.
-Apart from this, i have used JSON Web Token (JWT) to add authentication. Using JWT, i can protect certain endpoints and ensure that user must be logged-in to access those.
+Created using Spring Boot, PostgreSQL as the relational database and JdbcTemplate to interact with it.
+JSON Web Token (JWT) is used for authentication. Some endpoints require that user must be logged-in to access them.
 
 ## Setup and Installation
 
@@ -45,4 +45,76 @@ Apart from this, i have used JSON Web Token (JWT) to add authentication. Using J
    ./mvnw spring-boot:run
    ```
    this runs at port 8080 and hence all endpoints can be accessed starting from http://localhost:8080
+
+
+7. **API REQUESTS**
+   1. *To retrieve information about a loan, use the endpoint below*
+   ```
+   GET http://localhost:8080/api/v1/loans/{accountNumber}
+   ```
+   But for this request to be successful we need to have some data about the customer
+   
+   2. *Create user* 
+   ```
+   POST http://localhost:8080/api/v1/users/register
+   {
+   "firstName":"John",
+   "lastName": "Doe",
+   "email": "john3@testmail.com",
+   "password": "test123",
+   "isAdmin": false
+   }
+   ```
+   3. *Sign in User*
+   ```
+   POST http://localhost:8080/api/v1/users/login
+   {
+   "email": "john3@testmail.com",
+   "password": "test123"
+   }
+   ```
+   The following end-points can only be accessed by authenticated users. Add a header in POSTMAN with the details below
+   ```
+   Key: Authorization and Value: Bearer {token}
+   ```
+   4. *Create an account*
+   ```
+   POST  http://localhost:8080/api/v1/accounts
+   {
+   "opening_balance": 10000
+   }
+   ```
+   5. *Get Account details*
+   ```
+   GET http://localhost:8080/api/v1/accounts/{accountNumber}
+   ```
+   6. *Update account details*
+   ```
+   { 
+    "openingBalance": 50000
+   }
+   ```
+   7. *Create a loan*
+   ```
+   POST http://localhost:8080/api/v1/loans
+   {
+   "loanAmount":1200000
+   }
+   ```
+   Now, we can retrieve information about a loan, by using the endpoint below
+   ```
+   GET http://localhost:8080/api/v1/loans/{accountNumber}
+   ```
+   8. *Make a loan payment*
+   ```
+   POST http://localhost:8080/api/v1/loans/{loanId}/payments
+   {
+   "amount": 55000,
+   "note": "Loan Deposit for Feb"
+   }
+   ```
+   
+   
+   
+      
  
