@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>API Metrics</title>
+</head>
+<body>
+<h1>API Metrics</h1>
+
+<p>Total Requests: <span th:text="${metrics.totalRequests}"></span></p>
+<p>Failed Validations: <span th:text="${metrics.failedValidations}"></span></p>
+<p>Positive Requests: <span th:text="${metrics.positiveRequests}"></span></p>
+<p>Negative Requests: <span th:text="${metrics.negativeRequests}"></span></p>
+</body>
+</html>
