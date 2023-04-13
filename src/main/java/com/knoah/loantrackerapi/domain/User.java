@@ -1,6 +1,9 @@
 package com.knoah.loantrackerapi.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 public class User {
+    @Schema(hidden=true)
     private Integer userId;
     private String firstName;
     private String lastName;

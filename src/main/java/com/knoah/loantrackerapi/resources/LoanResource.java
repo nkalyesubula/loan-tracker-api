@@ -7,9 +7,11 @@ import com.knoah.loantrackerapi.exceptions.LtBadRequestException;
 import com.knoah.loantrackerapi.exceptions.LtResourceNotFoundException;
 import com.knoah.loantrackerapi.services.AccountService;
 import com.knoah.loantrackerapi.services.LoanService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +21,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/loans")
+@SecurityRequirement(name = "Bearer Authentication")
 public class LoanResource {
     private final ApiMetrics metrics = new ApiMetrics();
     @Autowired
@@ -29,8 +32,9 @@ public class LoanResource {
 
     // add a loan
     @PostMapping("")
+    @Operation(summary = "Create new Loan Details")
     public ResponseEntity<Loan> addLoan(HttpServletRequest request,
-                                        @RequestBody Map<String, Object> loanMap) {
+                                        @Schema(implementation= Loan.class)  @RequestBody Map<String, Object> loanMap) {
         metrics.incrementTotalRequests();
         int customerId = (Integer) request.getAttribute("customerId");
         Double loanAmount = Double.valueOf(loanMap.get("loanAmount").toString());
@@ -40,6 +44,7 @@ public class LoanResource {
 
     // get loan status by account number
     @GetMapping("/{accountId}")
+    @Operation(summary = "Get Loan Status By Account Number" )
     public ResponseEntity<List<Loan>> getLoanByAccountId(HttpServletRequest request,
                                                       @PathVariable("accountId") Integer accountId) {
         metrics.incrementTotalRequests();

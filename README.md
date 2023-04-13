@@ -47,7 +47,12 @@ JSON Web Token (JWT) is used for authentication. Some endpoints require that use
    this runs at port 8080 and hence all endpoints can be accessed starting from http://localhost:8080
 
 
-7. **API REQUESTS**
+7. **API DOCs**
+   ```
+   http://localhost:8080/swagger-ui/index.html
+   ```
+
+8. **API REQUESTS**
    1. *To retrieve information about a loan, use the endpoint below*
    ```
    GET http://localhost:8080/api/v1/loans/{accountNumber}

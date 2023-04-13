@@ -2,6 +2,9 @@ package com.knoah.loantrackerapi.resources;
 
 import com.knoah.loantrackerapi.domain.LoanPayment;
 import com.knoah.loantrackerapi.services.LoanPaymentService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,15 +15,18 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("/api/v1/loans/{loanId}/payments")
+@SecurityRequirement(name = "Bearer Authentication")
 public class LoanPaymentResource {
     @Autowired
     LoanPaymentService loanPaymentService;
 
     // make a loan payment
-    @PostMapping("/api/v1/loans/{loanId}/payments")
+    @PostMapping("")
+    @Operation(summary = "Make a loan payment")
     public ResponseEntity<LoanPayment> addLoanPayment(HttpServletRequest request,
                                                       @PathVariable("loanId") Integer loanId,
-                                                      @RequestBody Map<String, Object> transactionMap) {
+                                                     @Schema(implementation=LoanPayment.class) @RequestBody Map<String, Object> transactionMap) {
         int customerId = (Integer) request.getAttribute("customerId");
         Double amount = Double.valueOf(transactionMap.get("amount").toString());
         String note = (String) transactionMap.get("note");
@@ -30,6 +36,7 @@ public class LoanPaymentResource {
 
     // get a loan payment id
     @GetMapping("/{loanPaymentId}")
+    @Operation(summary = "Get Loan payment details by Id")
     public ResponseEntity<LoanPayment> getLoanPaymentById(HttpServletRequest request,
                                                           @PathVariable("loanId") Integer loanId,
                                                           @PathVariable("loanPaymentId") Integer loanPaymentId) {
@@ -41,6 +48,7 @@ public class LoanPaymentResource {
 
     // fetch all payments made for a particular loan
     @GetMapping("")
+    @Operation(summary = "Get all loan payment history")
     public ResponseEntity<List<LoanPayment>> getAllLoanPayments(HttpServletRequest request,
                                                                 @PathVariable("loanId") Integer loanId) {
         int customerId = (Integer) request.getAttribute("customerId");

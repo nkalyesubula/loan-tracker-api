@@ -1,12 +1,18 @@
 package com.knoah.loantrackerapi.domain;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.Date;
 
 public class Loan {
+    @Schema(hidden=true)
     private Integer loanId;
+    @Schema(hidden=true)
     private Integer customerId;
     private Double loanAmount;
+    @Schema(hidden=true)
     private Double outstandingBalance;
+    @Schema(hidden=true)
     private String disbursementDate;
 
     public Loan(Integer loanId, Integer customerId, Double loanAmount, Double outstandingBalance, String disbursementDate) {
