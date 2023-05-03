@@ -64,7 +64,7 @@ public class LoanResource {
         List<Loan> loans = loanService.fetchAllLoans(customerId);
         if(loans.isEmpty())
            // metrics.incrementNegativeRequests();
-            throw new LtResourceNotFoundException("Account number not found");
+            throw new LtResourceNotFoundException("No loan found");
         // metrics.incrementPositiveRequests();
         return new ResponseEntity<>(loans, HttpStatus.OK);
     }
