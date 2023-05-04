@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -67,5 +68,13 @@ public class LoanResource {
             throw new LtResourceNotFoundException("No loan found");
         // metrics.incrementPositiveRequests();
         return new ResponseEntity<>(loans, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<Map> handleNumberFormatException(NumberFormatException ex) {
+        Map<String, String> map = new HashMap<>();
+        map.put("error", "Bad Request");
+        map.put("message", "Account number must be a 10 digit number");
+        return ResponseEntity.badRequest().body(map);
     }
 }

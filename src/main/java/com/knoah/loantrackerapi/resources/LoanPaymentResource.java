@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -54,5 +55,13 @@ public class LoanPaymentResource {
         int customerId = (Integer) request.getAttribute("customerId");
         List<LoanPayment> transactions = loanPaymentService.fetchAllLoanPayments(customerId, loanId);
         return new ResponseEntity<>(transactions, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<Map> handleNumberFormatException(NumberFormatException ex) {
+        Map<String, String> map = new HashMap<>();
+        map.put("error", "Bad Request");
+        map.put("message", "Invalid loan id");
+        return ResponseEntity.badRequest().body(map);
     }
 }

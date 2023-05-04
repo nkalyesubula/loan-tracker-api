@@ -76,4 +76,12 @@ public class AccountResource {
         map.put("success", true);
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity<Map> handleNumberFormatException(NumberFormatException ex) {
+        Map<String, String> map = new HashMap<>();
+        map.put("error", "Bad Request");
+        map.put("message", "Account number must be a 10 digit number");
+        return ResponseEntity.badRequest().body(map);
+    }
 }
