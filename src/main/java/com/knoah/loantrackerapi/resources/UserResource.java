@@ -52,6 +52,8 @@ public class UserResource {
         User user = userService.registerUser(firstName, lastName, email, password, isAdmin);
         Map<String, String> map = new HashMap<>();
         map.put("message", "registered successfully");
+        System.out.println("helo");
+
         map.put("token", generateJWTToken(user));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }
